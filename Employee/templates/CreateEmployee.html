@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Employee - EmployeeManager{% endblock %}
+
+{% block content %}<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h1>Create Employee</h1>
+        <hr />
+        <div class="border border-primary rounded p-2 mx-auto" style="width:fit-content">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-plus-square"></span>&nbsp;Create</button>
+                    <a class="btn btn-sm btn-danger" href="{% url 'ListEmployees' %}"><span class="fa fa-window-close"></span>&nbsp;Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+{% endblock %}

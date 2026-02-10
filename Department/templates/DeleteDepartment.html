@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Department - EmployeeManager{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h1>Delete Department</h1>
+        <hr />
+        <div class="border border-primary rounded p-2 mx-auto" style="width:fit-content">
+            <!-- templates/tasks/task_confirm_delete.html -->
+            <h2>Are you sure you want to delete "{{ department }}"?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-check-circle"></span>&nbsp;Yes, delete</button>
+                <a class="btn btn-sm btn-danger" href="{% url 'ListDepartments' %}"><span class="fa fa-window-close"></span>&nbsp;Cancel</a>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    </div>
+{% endblock %}

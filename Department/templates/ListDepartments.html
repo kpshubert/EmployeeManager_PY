@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Employee - EmployeeManager{% endblock %}
+
+{% block content %}<div class="row">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <a class="btn btn-sm btn-success" href="{% url 'CreateDepartment' %}"><span class="fa fa-plus-square"></span>&nbsp;Add Department</a>
+            {% if page_obj.num_pages == 0 %}
+                No department data found...
+            {% else %}
+                <table class="table table-striped table-hover table-group-divider">
+                <caption>
+                    <!-- Pagination -->
+                    {% if is_paginated %}
+                        <div class="pagination">
+                            <span class="page-links text-center">
+                                {% if page_obj.has_previous %}
+                                    <a class="btn btn-dark" href="?page=1"><span class="fa fa-angle-double-left"></span>&nbsp;First</a>
+                                    <a class="btn btn-dark" href="?page={{ page_obj.previous_page_number }}"><span class="fa fa-angle-left"></span>&nbsp;Previous</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                    <a class="btn btn-dark" href="?page={{ page_obj.next_page_number }}">Next&nbsp;<span class="fa fa-angle-right"></span></a>
+                                    <a class="btn btn-dark" href="?page={{ page_obj.paginator.num_pages }}">Last&nbsp;<span class="fa fa-angle-double-right"></span></a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endif %}
+                </caption>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for department in departments %}
+                        <tr>
+                            <td>
+                                <a class="btn btn-sm btn-success" title="Edit Department" href="{% url 'EditDepartment' department.Id %}"><span class="fa fa-edit"></span></a>
+                                <a class="btn btn-sm btn-danger" title="Delete Department" href="{% url 'DeleteDepartment' department.Id %}"><span class="fa fa-trash"></span></a>
+                                <a class="btn btn-sm btn-info" title="Department Detail" href="{% url 'DetailDepartment' department.Id %}"><span class="fa fa-info-circle"></span></a>
+                            </td>
+                            <td>
+                                {{ department.Id }}
+                            </td>
+                            <td>
+                                {{ department.Name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <h2>Department List</h2>
+                    </tfoot>
+                </table>
+            {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+{%  endblock %}
