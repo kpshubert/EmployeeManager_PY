@@ -2,50 +2,44 @@
 
 {% block title %}Employee Detail - EmployeeManager{% endblock %}
 
-{% block content %}<div class="row">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <h1>Employee Detail</h1>
-            <hr />
-            <div class="border border-primary rounded p-2 pe-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>Name:</h2>
-                    </div>
-                    <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
-                        <h2>{{ employee.FirstName }}&nbsp;{{ employee.LastName }}</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        Email:
-                    </div>
-                    <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
-                        {{ employee.Email }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        Contact Phone:
-                    </div>
-                    <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
-                        {{ employee.Phone }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        Department:
-                    </div>
-                    <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
-                        {{ employee.DepartmentID }}
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a class="btn btn-sm btn-success" href="{% url 'ListEmployees' %}"><span class="fa fa-list"></span>&nbsp;&nbsp;Back to List</a>
-                </div>
+{% block content %}
+    <h1>Employee Detail</h1>
+    <hr />
+    <div class="border border-primary rounded p-2 pe-3">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Name:</h2>
+            </div>
+            <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
+                <h2>{{ employee.FirstName }}&nbsp;{{ employee.LastName }}</h2>
             </div>
         </div>
-        <div class="col-md-1"></div>
+        <div class="row">
+            <div class="col-md-6">
+                Email:
+            </div>
+            <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
+                {{ employee.Email }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Contact Phone:
+            </div>
+            <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
+                {{ employee.Phone }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Department:
+            </div>
+            <div class="col-md-6 border border-black rounded bg-info text-white md-auto ps-1 pt-0 pb-0 mb-3">
+                {{ employee.DepartmentID }}
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-sm btn-success" href="{% url 'ListEmployees' %}"><span class="fa fa-list"></span>&nbsp;&nbsp;Back to List</a>
+        </div>
     </div>
 {% endblock %}
