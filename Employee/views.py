@@ -3,9 +3,13 @@ from django import forms
 from django.http import HttpResponse
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView, DetailView
 from django.urls import reverse_lazy
+from .forms import EditEmployeeForm, CreateEmployeeForm
+
 '''
 from .models import tEM_Employee
 '''
+
+
 # Create your views here.
 
 def index(request):
@@ -21,25 +25,25 @@ class EmployeeListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+class CreateEmployeeView(CreateView):
+    model = tEM_Employee
+    form_class = CreateEmployeeForm  # Use custom form with labels
+    template_name = 'CreateEmployee.html'
+    success_url = reverse_lazy('ListEmployee')  # Replace with your URL name
+    context_object_name = "employee"
+
 class EditEmployeeView(UpdateView):
     model = tEM_Employee
-    success_url = reverse_lazy('ListEmployees')  # Use reverse_lazy for URLs
-    fields = ['FirstName', 'LastName', 'Phone', 'Email', 'DepartmentID']
-    labels = {
-        'FirstName': 'First Name',
-        'LastName': 'Last Name',
-        'Phone': 'Phone',
-        'Email': 'Email',
-        'DepartmentID': 'Department ID'
-    }
-    template_name = "EditEmployee.html"
+    form_class = EditEmployeeForm  # Use custom form with labels
+    template_name = 'EditEmployee.html'
+    success_url = reverse_lazy('ListEmployee')  # Replace with your URL name
     context_object_name = "employee"
-    widgets = {
-        'DepartmentId': forms.Select(attrs={'class': 'form-control'}),
-    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        '''
+        context['Applications'] = Application.objects.filter(vacancy_id=self.kwargs['vacancy_id'])
+        '''
         return context
 
 class DeleteEmployeeView(DeleteView):
@@ -51,12 +55,6 @@ class DeleteEmployeeView(DeleteView):
     def get_cpntext_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-class CreateEmployeeView(CreateView):
-    model = tEM_Employee
-    fields = ['FirstName', 'LastName', 'Phone', 'Email', 'DepartmentID']
-    success_url = reverse_lazy('ListEmployees')  # Use reverse_lazy for URLs
-
 class DetailEmployeeView(DetailView):
     model = tEM_Employee
     template_name = "DetailEmploee.html"

@@ -7,6 +7,7 @@ from django import forms
 from django.http import HttpResponse
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView, DetailView
 from django.urls import reverse_lazy
+from .forms import EditDepartmentForm, CreateDepartmentForm
 
 # Create your views here.
 
@@ -23,18 +24,25 @@ class DepartmentListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+class CreateDepartmentView(CreateView):
+    model = tEM_Department
+    form_class =   CreateDepartmentForm  # Use custom form with labels
+    template_name = 'CreateDepartment.html'
+    success_url = reverse_lazy('ListDepartment')  # Replace with your URL name
+    context_object_name = "department"
+
 class EditDepartmentView(UpdateView):
     model = tEM_Department
-    success_url = reverse_lazy('ListDepartments')  # Use reverse_lazy for URLs
-    fields = ['Name' ]
-    labels = {
-        'Name': 'Department Name',
-    }
-    template_name = "EditEmployee.html"
+    form_class = EditDepartmentForm  # Use custom form with labels
+    template_name = 'EditDepartment.html'
+    success_url = reverse_lazy('ListDepartment')  # Replace with your URL name
     context_object_name = "department"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        '''
+        context['Applications'] = Application.objects.filter(vacancy_id=self.kwargs['vacancy_id'])
+        '''
         return context
 
 class DeleteDepartmentView(DeleteView):
@@ -46,11 +54,6 @@ class DeleteDepartmentView(DeleteView):
     def get_cpntext_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-class CreateDepartmentView(CreateView):
-    model = tEM_Department
-    fields = ['Name']
-    success_url = reverse_lazy('ListDepartments')  # Use reverse_lazy for URLs
 
 class DetailDepartmentView(DetailView):
     model = tEM_Department
