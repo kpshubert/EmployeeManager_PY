@@ -7,11 +7,18 @@
     <hr />
     <div class="border border-primary rounded p-2 mx-auto" style="width:fit-content">
         <!-- templates/tasks/task_confirm_delete.html -->
-        <h2>Are you sure you want to delete "{{ department }}"?</h2>
+        <h2>Are you sure you want to delete "{{ department.Name }}"?</h2>
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-check-circle"></span>&nbsp;Yes, delete</button>
+            {% if department.EmployeeCount == 0 %}
+                <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-check-circle"></span>&nbsp;Yes, delete</button>
+            {% endif %}
             <a class="btn btn-sm btn-danger" href="{% url 'ListDepartments' %}"><span class="fa fa-window-close"></span>&nbsp;Cancel</a>
+            {% if department.EmployeeCount > 0 %}
+                <div class="alert alert-danger mt-3">
+                    Can't delete this department because it has {{ deparment.EmployeeCount }} employeex assigned to it
+                </div>
+            {% endif %}
         </form>
     </div>
 {% endblock %}
