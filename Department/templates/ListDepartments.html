@@ -37,6 +37,7 @@
                     <th></th>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Employee Count</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +45,9 @@
                     <tr>
                         <td>
                             <a class="btn btn-sm btn-success" title="Edit Department" href="{% url 'EditDepartment' department.Id %}"><span class="fa fa-edit"></span></a>
-                            <a class="btn btn-sm btn-danger" title="Delete Department" href="{% url 'DeleteDepartment' department.Id %}"><span class="fa fa-trash"></span></a>
+                            {% if department.EmployeeCount == 0 %}
+                                <a class="btn btn-sm btn-danger" title="Delete Department" href="{% url 'DeleteDepartment' department.Id %}"><span class="fa fa-trash"></span></a>
+                            {% endif %}
                             <a class="btn btn-sm btn-info" title="Department Detail" href="{% url 'DetailDepartment' department.Id %}"><span class="fa fa-info-circle"></span></a>
                         </td>
                         <td>
@@ -52,6 +55,9 @@
                         </td>
                         <td>
                             {{ department.Name }}
+                        </td>
+                        <td>
+                            {{ department.EmployeeCount }}
                         </td>
                     </tr>
                 {% endfor %}

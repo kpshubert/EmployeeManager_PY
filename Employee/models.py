@@ -7,10 +7,8 @@ class tEM_Employee(models.Model):
     LastName = models.CharField(max_length=100)
     Email = models.CharField(max_length=100)
     Phone = models.CharField(max_length=100)
-    '''
-    DepartmentID = models.IntegerField()
-    '''
-    DepartmentID = models.ForeignKey('tEM_Department', db_column='DepartmentId', on_delete=models.CASCADE,)
+
+    DepartmentID = models.ForeignKey('tEM_Department', db_column='DepartmentId', on_delete=models.PROTECT,)
     class Meta:
         db_table = 'tEM_Employee'
     class Meta:
