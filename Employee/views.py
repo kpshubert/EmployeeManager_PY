@@ -29,14 +29,14 @@ class CreateEmployeeView(CreateView):
     model = tEM_Employee
     form_class = CreateEmployeeForm  # Use custom form with labels
     template_name = 'CreateEmployee.html'
-    success_url = reverse_lazy('ListEmployee')  # Replace with your URL name
+    success_url = reverse_lazy('ListEmployees')  # Replace with your URL name
     context_object_name = "employee"
 
 class EditEmployeeView(UpdateView):
     model = tEM_Employee
     form_class = EditEmployeeForm  # Use custom form with labels
     template_name = 'EditEmployee.html'
-    success_url = reverse_lazy('ListEmployee')  # Replace with your URL name
+    success_url = reverse_lazy('ListEmployees')  # Replace with your URL name
     context_object_name = "employee"
 
     def get_context_data(self, **kwargs):
@@ -51,10 +51,12 @@ class DeleteEmployeeView(DeleteView):
     template_name = "DeleteEmployee.html"
     context_object_name = "employee"
     success_url = reverse_lazy('ListEmployees')  # Use reverse_lazy for URLs
+    failure_message = "Employee was not deleted."
 
-    def get_cpntext_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 class DetailEmployeeView(DetailView):
     model = tEM_Employee
     template_name = "DetailEmploee.html"
