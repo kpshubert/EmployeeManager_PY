@@ -21,15 +21,11 @@ class DepartmentListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #EmployeeCount = tem_employee.objects.annotate(Count('DepartmentId')).order_by('DepartmentId')
         context['departments'] = tEM_Department.objects.annotate(EmployeeCount = Count('tem_employee', distinct=True))
-
         paginator = Paginator(context['departments'], per_page=3)
         page_number = self.request.GET.get('page', 1)
         page = paginator.get_page(page_number)
-
         context['departments'] = page
-
         return context
 
 class CreateDepartmentView(CreateView):

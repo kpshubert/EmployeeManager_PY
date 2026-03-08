@@ -1,9 +1,12 @@
+from Employee.filters import EmployeeFilter
 from Employee.models import tEM_Employee
 from django import forms
 from django.http import HttpResponse
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView, DetailView
+from django_filters.views import FilterView
 from django.urls import reverse_lazy
 from .forms import EditEmployeeForm, CreateEmployeeForm
+from utils import prepend_if_not_empty
 
 '''
 from .models import tEM_Employee
@@ -15,15 +18,26 @@ from .models import tEM_Employee
 def index(request):
     return HttpResponse("<h1>Hello, world. You're looking at the templates manager homepage.</h1>")
 
-class EmployeeListView(ListView):
+class EmployeeListView(FilterView):
     model = tEM_Employee
     paginate_by = 3
     template_name = "ListEmployees.html"
+    filterset_class = EmployeeFilter
     context_object_name = "employees"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['filter'] = EmployeeFilter(self.request.GET, queryset=super().get_queryset())
+        query_dict = self.request.GET.copy()
+        query_dict.pop('page', True)
+        context['query_string'] = prepend_if_not_empty(query_dict.urlencode(), '&')
         return context
+
 
 class CreateEmployeeView(CreateView):
     model = tEM_Employee
